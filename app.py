@@ -3,6 +3,19 @@ import sqlite3
 from datetime import datetime
 from flask import Flask, request, jsonify, render_template, send_from_directory, abort
 from werkzeug.utils import secure_filename
+from functools import wraps
+from flask import request, jsonify
+
+ADMIN_TOKEN = "change_this_to_a_secret_key"
+
+def admin_required(f):
+    @wraps(f)
+    def wrapper(*args, **kwargs):
+        token = request.headers.get("X-ADMIN-TOKEN")
+        if token != ADMIN_TOKEN:
+            return jsonify({"error": "Unauthorized"}), 403
+        return f(*args, **kwargs)
+    return wrapper
 
 app = Flask(__name__)
 
@@ -117,6 +130,7 @@ def upload_video():
 
 
 @app.route('/api/videos/<int:vid_id>', methods=['DELETE'])
+@admin_required
 def delete_video(vid_id):
     with get_db() as db:
         video = db.execute("SELECT * FROM videos WHERE id = ?", (vid_id,)).fetchone()
@@ -155,6 +169,7 @@ def add_comment(vid_id):
 
 
 @app.route('/api/comments/<int:cid>', methods=['DELETE'])
+@admin_required
 def delete_comment(cid):
     with get_db() as db:
         db.execute("DELETE FROM comments WHERE id = ?", (cid,))
