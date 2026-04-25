@@ -23,10 +23,10 @@ app = Flask(__name__)
 BASE_DIR    = os.path.dirname(os.path.abspath(__file__))
 UPLOAD_DIR  = os.path.join(BASE_DIR, 'static', 'uploads')
 DB_PATH     = os.path.join(BASE_DIR, 'rixsolve.db')
-MAX_MB      = 1024
+MAX_GB      = 1
 ALLOWED_EXT = {'mp4', 'mov', 'avi', 'mkv', 'webm', 'flv', 'm4v'}
 
-app.config['MAX_CONTENT_LENGTH'] = MAX_MB * 1024 * 1024
+app.config['MAX_CONTENT_LENGTH'] = MAX_GB * 1024 * 1024 * 1024
 
 os.makedirs(UPLOAD_DIR, exist_ok=True)
 
