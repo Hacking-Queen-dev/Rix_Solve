@@ -1,0 +1,475 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>Rix Solve — Learn. Code. Solve. Grow.</title>
+<link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@700;900&family=Exo+2:wght@400;500;600&display=swap" rel="stylesheet"/>
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+:root{
+  --blue:#1a3cff;--blue-dark:#0d1f8c;--orange:#ff6a00;--orange-light:#ff9a3c;
+  --dark:#080c1a;--darker:#040810;--surface:#0f1628;--surface2:#161e38;
+  --text:#e8eaf6;--muted:#8892b0;--border:rgba(255,255,255,0.08);--radius:14px;
+}
+html{scroll-behavior:smooth}
+body{font-family:'Exo 2',sans-serif;background:var(--darker);color:var(--text);min-height:100vh;overflow-x:hidden}
+::-webkit-scrollbar{width:6px}
+::-webkit-scrollbar-track{background:var(--darker)}
+::-webkit-scrollbar-thumb{background:var(--blue);border-radius:3px}
+
+/* NAV */
+nav{position:sticky;top:0;z-index:100;background:rgba(8,12,26,0.95);backdrop-filter:blur(12px);
+  border-bottom:1px solid var(--border);padding:0 2rem;
+  display:flex;align-items:center;justify-content:space-between;height:64px}
+.nav-logo{font-family:'Orbitron',sans-serif;font-size:1.2rem;font-weight:900;
+  background:linear-gradient(90deg,#1a3cff,#ff6a00);-webkit-background-clip:text;
+  -webkit-text-fill-color:transparent;letter-spacing:2px}
+.nav-links{display:flex;gap:2rem}
+.nav-links a{color:var(--muted);text-decoration:none;font-size:.88rem;font-weight:500;
+  letter-spacing:1px;text-transform:uppercase;transition:color .2s}
+.nav-links a:hover{color:var(--orange)}
+
+/* HERO */
+.hero{min-height:88vh;display:flex;flex-direction:column;align-items:center;
+  justify-content:center;text-align:center;padding:4rem 2rem;position:relative;overflow:hidden}
+.hero-bg{position:absolute;inset:0;
+  background:radial-gradient(ellipse 60% 50% at 50% 0%,rgba(26,60,255,.15) 0%,transparent 70%),
+  radial-gradient(ellipse 40% 40% at 80% 80%,rgba(255,106,0,.1) 0%,transparent 60%)}
+.hero-grid{position:absolute;inset:0;opacity:.04;
+  background-image:linear-gradient(var(--blue) 1px,transparent 1px),
+  linear-gradient(90deg,var(--blue) 1px,transparent 1px);background-size:48px 48px}
+.hero-content{position:relative;z-index:1}
+.hero-badge{display:inline-flex;align-items:center;gap:8px;
+  background:rgba(26,60,255,.12);border:1px solid rgba(26,60,255,.3);
+  padding:6px 18px;border-radius:999px;font-size:.75rem;font-weight:600;
+  letter-spacing:2px;text-transform:uppercase;color:#7a9eff;margin-bottom:2rem}
+.badge-dot{width:6px;height:6px;border-radius:50%;background:#7a9eff;
+  animation:pulse 2s infinite;display:inline-block}
+@keyframes pulse{0%,100%{opacity:1;transform:scale(1)}50%{opacity:.4;transform:scale(1.4)}}
+.hero-title{font-family:'Orbitron',sans-serif;font-size:clamp(2.8rem,7vw,5rem);
+  font-weight:900;line-height:1.05;margin-bottom:.5rem}
+.blue{color:#1a3cff}.orange{color:#ff6a00}
+.hero-tagline{font-size:.82rem;letter-spacing:4px;font-weight:600;color:var(--muted);
+  text-transform:uppercase;margin-bottom:1.5rem}
+.hero-desc{max-width:520px;font-size:1.05rem;line-height:1.7;color:var(--muted);
+  margin:0 auto 2.5rem}
+.hero-cta{display:flex;gap:1rem;justify-content:center;flex-wrap:wrap}
+.btn-primary{background:linear-gradient(135deg,#1a3cff,#0d1f8c);color:#fff;border:none;
+  padding:14px 32px;border-radius:8px;font-family:'Exo 2',sans-serif;font-size:.95rem;
+  font-weight:600;cursor:pointer;letter-spacing:1px;text-transform:uppercase;
+  box-shadow:0 4px 24px rgba(26,60,255,.35);transition:transform .15s,box-shadow .15s}
+.btn-primary:hover{transform:translateY(-2px);box-shadow:0 8px 32px rgba(26,60,255,.5)}
+.btn-outline{background:transparent;color:var(--orange);border:1.5px solid var(--orange);
+  padding:14px 32px;border-radius:8px;font-family:'Exo 2',sans-serif;font-size:.95rem;
+  font-weight:600;cursor:pointer;letter-spacing:1px;text-transform:uppercase;transition:all .15s}
+.btn-outline:hover{background:var(--orange);color:#fff}
+
+/* STATS */
+.stats-bar{background:var(--surface);border-top:1px solid var(--border);
+  border-bottom:1px solid var(--border);padding:1.5rem 2rem;
+  display:flex;justify-content:center;gap:4rem;flex-wrap:wrap}
+.stat{text-align:center}
+.stat-num{font-family:'Orbitron',sans-serif;font-size:1.8rem;font-weight:700;color:var(--orange)}
+.stat-label{font-size:.75rem;color:var(--muted);letter-spacing:2px;text-transform:uppercase;margin-top:2px}
+
+/* SECTIONS */
+.section{padding:5rem 2rem;max-width:1100px;margin:0 auto}
+.section-header{text-align:center;margin-bottom:3rem}
+.section-tag{display:inline-block;font-size:.7rem;letter-spacing:3px;text-transform:uppercase;
+  color:var(--orange);font-weight:700;margin-bottom:.75rem;padding:4px 14px;
+  border:1px solid rgba(255,106,0,.3);border-radius:999px;background:rgba(255,106,0,.07)}
+.section-title{font-family:'Orbitron',sans-serif;font-size:clamp(1.6rem,3.5vw,2.4rem);font-weight:700}
+
+/* UPLOAD */
+.upload-zone{border:2px dashed rgba(26,60,255,.3);border-radius:var(--radius);
+  padding:3rem;text-align:center;background:rgba(26,60,255,.04);cursor:pointer;
+  margin-bottom:2.5rem;transition:all .2s}
+.upload-zone:hover,.upload-zone.drag{border-color:var(--blue);background:rgba(26,60,255,.1)}
+.upload-icon{font-size:3rem;margin-bottom:1rem}
+.upload-zone p{color:var(--muted);font-size:.95rem}
+.upload-zone strong{color:var(--text)}
+
+/* VIDEO GRID */
+.video-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(300px,1fr));gap:1.5rem}
+.video-card{background:var(--surface);border:1px solid var(--border);border-radius:var(--radius);
+  overflow:hidden;transition:transform .2s,box-shadow .2s}
+.video-card:hover{transform:translateY(-4px);box-shadow:0 12px 40px rgba(26,60,255,.2)}
+.video-thumb{position:relative;aspect-ratio:16/9;background:var(--surface2);cursor:pointer;
+  display:flex;align-items:center;justify-content:center;overflow:hidden}
+.video-thumb video{width:100%;height:100%;object-fit:cover;display:block}
+.play-overlay{position:absolute;inset:0;background:rgba(0,0,0,.4);
+  display:flex;align-items:center;justify-content:center;transition:background .2s}
+.video-thumb:hover .play-overlay{background:rgba(0,0,0,.2)}
+.play-btn{width:56px;height:56px;border-radius:50%;
+  background:linear-gradient(135deg,var(--blue),var(--orange));
+  display:flex;align-items:center;justify-content:center;font-size:1.4rem;
+  box-shadow:0 4px 20px rgba(0,0,0,.4);transition:transform .2s}
+.video-thumb:hover .play-btn{transform:scale(1.1)}
+.video-info{padding:1rem 1.2rem}
+.video-title{font-weight:600;font-size:1rem;margin-bottom:4px}
+.video-meta{font-size:.78rem;color:var(--muted);margin-bottom:.75rem}
+.video-actions{display:flex;gap:8px;margin-bottom:.75rem}
+.act-btn{flex:1;padding:8px 4px;border-radius:6px;border:1px solid var(--border);
+  background:transparent;color:var(--muted);font-family:'Exo 2',sans-serif;
+  font-size:.75rem;font-weight:600;cursor:pointer;text-transform:uppercase;
+  letter-spacing:1px;transition:all .15s}
+.act-btn:hover.watch{border-color:var(--blue);color:#7a9eff}
+.act-btn:hover.dl{border-color:var(--orange);color:var(--orange)}
+.act-btn:hover.del{border-color:#e24b4a;color:#e24b4a}
+
+/* COMMENTS */
+.comments-wrap{border-top:1px solid var(--border);padding-top:.75rem}
+.comment-toggle{background:none;border:none;color:var(--muted);font-family:'Exo 2',sans-serif;
+  font-size:.82rem;cursor:pointer;width:100%;text-align:left;padding-bottom:8px;transition:color .15s}
+.comment-toggle:hover{color:var(--text)}
+.comments-list{display:none;flex-direction:column;gap:6px;margin-bottom:8px}
+.comments-list.open{display:flex}
+.comment-item{background:var(--surface2);border-radius:8px;padding:8px 10px;font-size:.82rem}
+.comment-author{color:var(--orange-light);font-size:.75rem;font-weight:600;margin-bottom:2px}
+.comment-form{display:flex;gap:6px}
+.c-name{width:90px;background:var(--surface2);border:1px solid var(--border);
+  border-radius:6px;padding:7px 10px;color:var(--text);font-family:'Exo 2',sans-serif;
+  font-size:.8rem;outline:none}
+.c-text{flex:1;background:var(--surface2);border:1px solid var(--border);
+  border-radius:6px;padding:7px 10px;color:var(--text);font-family:'Exo 2',sans-serif;
+  font-size:.8rem;outline:none}
+.c-name:focus,.c-text:focus{border-color:var(--blue)}
+.c-submit{background:var(--blue);border:none;border-radius:6px;color:#fff;
+  padding:7px 14px;cursor:pointer;font-family:'Exo 2',sans-serif;font-size:.8rem;font-weight:600}
+.c-submit:hover{background:#2d52ff}
+
+/* MODAL */
+.modal-overlay{display:none;position:fixed;inset:0;z-index:999;
+  background:rgba(0,0,0,.88);align-items:center;justify-content:center;padding:1rem}
+.modal-overlay.open{display:flex}
+.modal-box{background:var(--surface);border-radius:var(--radius);
+  border:1px solid var(--border);padding:1.5rem;width:100%;max-width:780px;position:relative}
+.modal-close{position:absolute;top:1rem;right:1rem;background:rgba(255,255,255,.1);
+  border:none;border-radius:50%;width:32px;height:32px;color:var(--text);
+  cursor:pointer;font-size:1rem;display:flex;align-items:center;justify-content:center}
+.modal-title{font-family:'Orbitron',sans-serif;font-size:1.1rem;font-weight:700;margin-bottom:1rem}
+.modal-video{width:100%;border-radius:8px;max-height:60vh}
+
+/* ABOUT / SOCIAL */
+.about-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:2rem}
+.about-card{background:var(--surface);border:1px solid var(--border);
+  border-radius:var(--radius);padding:2rem}
+.about-card h3{font-family:'Orbitron',sans-serif;font-size:1rem;font-weight:700;
+  color:var(--orange);margin-bottom:1rem;letter-spacing:1px}
+.about-card p{color:var(--muted);line-height:1.7;font-size:.95rem}
+.social-links{display:flex;flex-direction:column;gap:1rem}
+.social-link{display:flex;align-items:center;gap:14px;background:var(--surface2);
+  border:1px solid var(--border);border-radius:10px;padding:14px 18px;
+  text-decoration:none;color:var(--text);transition:border-color .2s,transform .15s}
+.social-link:hover{border-color:var(--orange);transform:translateX(4px)}
+.social-icon{width:40px;height:40px;border-radius:10px;display:flex;
+  align-items:center;justify-content:center;font-size:1.1rem;flex-shrink:0}
+.ig{background:linear-gradient(135deg,#833ab4,#fd1d1d,#fcb045)}
+.wa{background:#25d366}.yt{background:#ff0000}
+.social-name{font-weight:600;font-size:.95rem}
+.social-handle{font-size:.8rem;color:var(--muted)}
+
+/* FOOTER */
+footer{border-top:1px solid var(--border);text-align:center;
+  padding:2rem;color:var(--muted);font-size:.82rem}
+footer span{color:var(--orange)}
+
+/* EMPTY / TOAST */
+.empty{grid-column:1/-1;text-align:center;padding:3rem;color:var(--muted)}
+.empty-icon{font-size:3rem;margin-bottom:1rem}
+.toast{position:fixed;bottom:2rem;right:2rem;background:#0f1628;
+  border:1px solid var(--border);border-radius:10px;padding:14px 20px;
+  font-size:.88rem;color:var(--text);z-index:9999;
+  animation:slideIn .3s ease;display:none}
+.toast.show{display:block}
+.toast.ok{border-color:rgba(26,60,255,.5);color:#7a9eff}
+.toast.err{border-color:rgba(226,75,74,.5);color:#f09595}
+@keyframes slideIn{from{transform:translateY(20px);opacity:0}to{transform:translateY(0);opacity:1}}
+</style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav>
+  <div class="nav-logo">RIX SOLVE</div>
+  <div class="nav-links">
+    <a href="#videos">Videos</a>
+    <a href="#about">About</a>
+    <a href="#contact">Contact</a>
+  </div>
+</nav>
+
+<!-- HERO -->
+<div class="hero">
+  <div class="hero-bg"></div>
+  <div class="hero-grid"></div>
+  <div class="hero-content">
+    <div class="hero-badge"><span class="badge-dot"></span>Now Live</div>
+    <h1 class="hero-title"><span class="blue">RIX</span> <span class="orange">SOLVE</span></h1>
+    <p class="hero-tagline">Learn &bull; Code &bull; Solve &bull; Grow</p>
+    <p class="hero-desc">Hacking. Tech. Versatility. Your go-to hub for smart systems, intelligent solutions, and hands-on learning.</p>
+    <div class="hero-cta">
+      <button class="btn-primary" onclick="document.getElementById('videos').scrollIntoView({behavior:'smooth'})">Watch Videos</button>
+      <button class="btn-outline" onclick="document.getElementById('about').scrollIntoView({behavior:'smooth'})">Learn More</button>
+    </div>
+  </div>
+</div>
+
+<!-- STATS -->
+<div class="stats-bar">
+  <div class="stat"><div class="stat-num" id="vid-count">0</div><div class="stat-label">Videos</div></div>
+  <div class="stat"><div class="stat-num">∞</div><div class="stat-label">Knowledge</div></div>
+  <div class="stat"><div class="stat-num">3</div><div class="stat-label">Topics</div></div>
+</div>
+
+<!-- VIDEOS -->
+<section class="section" id="videos">
+  <div class="section-header">
+    <div class="section-tag">Content Hub</div>
+    <h2 class="section-title">Latest <span class="blue">Videos</span></h2>
+  </div>
+
+  <div class="upload-zone" id="upload-zone" onclick="document.getElementById('file-input').click()">
+    <div class="upload-icon">📤</div>
+    <p><strong>Click or drag &amp; drop to upload a video</strong></p>
+    <p style="margin-top:6px">MP4, MOV, AVI, MKV &bull; Max 500MB</p>
+  </div>
+  <input type="file" id="file-input" accept="video/*" style="display:none"/>
+
+  <div class="video-grid" id="video-grid">
+    <div class="empty">
+      <div class="empty-icon">🎬</div>
+      <p>No videos yet. Upload your first one above!</p>
+    </div>
+  </div>
+</section>
+
+<!-- ABOUT -->
+<section class="section" id="about">
+  <div class="section-header">
+    <div class="section-tag">About Me</div>
+    <h2 class="section-title">Smart Systems. <span class="blue">Intelligent Solutions.</span></h2>
+  </div>
+  <div class="about-grid">
+    <div class="about-card">
+      <h3>Who I Am</h3>
+      <p>I'm Rix — a tech educator and problem solver based in Kenya. I cover Hacking, Linux, Windows, Networking, Kali Linux, and smart systems. My mission is to make complex tech simple and accessible for everyone.</p>
+      <p style="color:var(--orange-light);margin-top:1rem;font-weight:600">Hacking. Tech. Versatility.</p>
+    </div>
+    <div class="about-card" id="contact">
+      <h3>Connect With Me</h3>
+      <div class="social-links">
+        <a class="social-link" href="https://instagram.com/rookie_rixs" target="_blank">
+          <div class="social-icon ig">📷</div>
+          <div><div class="social-name">Instagram</div><div class="social-handle">@rookie_rixs</div></div>
+        </a>
+        <a class="social-link" href="https://wa.me/+254769783504" target="_blank">
+          <div class="social-icon wa">💬</div>
+          <div><div class="social-name">WhatsApp</div><div class="social-handle">+254 768 783 504</div></div>
+        </a>
+        <a class="social-link" href="https://youtube.com/@rixsolve" target="_blank">
+          <div class="social-icon yt">▶</div>
+          <div><div class="social-name">YouTube</div><div class="social-handle">@rixsolve</div></div>
+        </a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<footer><p>&copy; 2026 <span>Rix Solve</span> &bull; Learn. Code. Solve. Grow.</p></footer>
+
+<!-- VIDEO MODAL -->
+<div class="modal-overlay" id="modal" onclick="closeModal(event)">
+  <div class="modal-box">
+    <button class="modal-close" onclick="closeModal()">✕</button>
+    <div class="modal-title" id="modal-title"></div>
+    <video class="modal-video" id="modal-video" controls></video>
+  </div>
+</div>
+
+<div class="toast" id="toast"></div>
+
+<script>
+// ── State ──────────────────────────────────────────────────────────
+let videos = [];
+
+// ── Toast ──────────────────────────────────────────────────────────
+function toast(msg, type='ok') {
+  const t = document.getElementById('toast');
+  t.textContent = msg;
+  t.className = `toast show ${type}`;
+  setTimeout(() => t.className = 'toast', 3000);
+}
+
+// ── Format date ───────────────────────────────────────────────────
+function fmtDate(s) {
+  return new Date(s).toLocaleDateString('en-KE', {day:'2-digit',month:'short',year:'numeric'});
+}
+
+// ── Load Videos ───────────────────────────────────────────────────
+async function loadVideos() {
+  try {
+    const res = await fetch('/api/videos');
+    videos = await res.json();
+    renderGrid();
+  } catch(e) { toast('Failed to load videos','err'); }
+}
+
+// ── Render Grid ───────────────────────────────────────────────────
+function renderGrid() {
+  document.getElementById('vid-count').textContent = videos.length;
+  const grid = document.getElementById('video-grid');
+  if (!videos.length) {
+    grid.innerHTML = `<div class="empty"><div class="empty-icon">🎬</div><p>No videos yet. Upload your first one above!</p></div>`;
+    return;
+  }
+  grid.innerHTML = videos.map(v => `
+    <div class="video-card" id="vc-${v.id}">
+      <div class="video-thumb" onclick="openModal(${v.id})">
+        <video src="/uploads/${v.filename}" preload="metadata" muted></video>
+        <div class="play-overlay"><div class="play-btn">▶</div></div>
+      </div>
+      <div class="video-info">
+        <div class="video-title">${escHtml(v.title)}</div>
+        <div class="video-meta">${fmtDate(v.created_at)}</div>
+        <div class="video-actions">
+          <button class="act-btn watch" onclick="openModal(${v.id})">▶ Watch</button>
+          <button class="act-btn dl" onclick="dlVideo(${v.id})">⬇ Download</button>
+          <button class="act-btn del" onclick="delVideo(${v.id})">🗑 Delete</button>
+        </div>
+        <div class="comments-wrap">
+          <button class="comment-toggle" onclick="toggleComments(${v.id})">
+            💬 Comments (<span id="ccount-${v.id}">${v.comment_count||0}</span>)
+          </button>
+          <div class="comments-list" id="clist-${v.id}"></div>
+          <div class="comment-form">
+            <input class="c-name" id="cname-${v.id}" placeholder="Your name"/>
+            <input class="c-text" id="ctext-${v.id}" placeholder="Write a comment..." onkeydown="if(event.key==='Enter')postComment(${v.id})"/>
+            <button class="c-submit" onclick="postComment(${v.id})">Post</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  `).join('');
+}
+
+function escHtml(s) {
+  return s.replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;');
+}
+
+// ── Upload ────────────────────────────────────────────────────────
+document.getElementById('file-input').addEventListener('change', async function() {
+  if (!this.files[0]) return;
+  await uploadFile(this.files[0]);
+  this.value = '';
+});
+
+const zone = document.getElementById('upload-zone');
+zone.addEventListener('dragover', e => { e.preventDefault(); zone.classList.add('drag'); });
+zone.addEventListener('dragleave', () => zone.classList.remove('drag'));
+zone.addEventListener('drop', async e => {
+  e.preventDefault(); zone.classList.remove('drag');
+  const file = e.dataTransfer.files[0];
+  if (file) await uploadFile(file);
+});
+
+async function uploadFile(file) {
+  if (!file.type.startsWith('video/')) { toast('Please upload a video file','err'); return; }
+  zone.querySelector('strong').textContent = 'Uploading...';
+  const form = new FormData();
+  form.append('video', file);
+  form.append('title', file.name.replace(/\.[^.]+$/, ''));
+  try {
+    const res = await fetch('/api/videos/upload', { method:'POST', body:form });
+    const data = await res.json();
+    if (data.error) { toast(data.error,'err'); }
+    else { toast('Video uploaded!'); await loadVideos(); }
+  } catch(e) { toast('Upload failed','err'); }
+  zone.querySelector('strong').textContent = 'Click or drag & drop to upload a video';
+}
+
+// ── Delete ────────────────────────────────────────────────────────
+async function delVideo(id) {
+  if (!confirm('Delete this video permanently?')) return;
+  await fetch(`/api/videos/${id}`, { method:'DELETE' });
+  toast('Video deleted');
+  await loadVideos();
+}
+
+// ── Download ──────────────────────────────────────────────────────
+function dlVideo(id) {
+  const v = videos.find(x => x.id === id);
+  if (!v) return;
+  const a = document.createElement('a');
+  a.href = `/uploads/${v.filename}`;
+  a.download = v.title;
+  a.click();
+}
+
+// ── Modal ─────────────────────────────────────────────────────────
+function openModal(id) {
+  const v = videos.find(x => x.id === id);
+  document.getElementById('modal-title').textContent = v.title;
+  document.getElementById('modal-video').src = `/uploads/${v.filename}`;
+  document.getElementById('modal').classList.add('open');
+}
+function closeModal(e) {
+  if (e && e.target !== document.getElementById('modal') && !e.target.classList.contains('modal-close')) return;
+  document.getElementById('modal').classList.remove('open');
+  document.getElementById('modal-video').pause();
+  document.getElementById('modal-video').src = '';
+}
+
+// ── Comments ──────────────────────────────────────────────────────
+const openComments = {};
+async function toggleComments(id) {
+  const list = document.getElementById(`clist-${id}`);
+  if (!openComments[id]) {
+    const res = await fetch(`/api/videos/${id}/comments`);
+    const data = await res.json();
+    renderComments(id, data);
+    openComments[id] = true;
+    list.classList.add('open');
+  } else {
+    openComments[id] = false;
+    list.classList.remove('open');
+  }
+}
+
+function renderComments(id, comments) {
+  const list = document.getElementById(`clist-${id}`);
+  list.innerHTML = comments.length
+    ? comments.map(c => `
+        <div class="comment-item">
+          <div class="comment-author">${escHtml(c.name)}</div>
+          <div>${escHtml(c.text)}</div>
+        </div>`).join('')
+    : `<p style="font-size:.8rem;color:var(--muted);margin-bottom:8px">No comments yet. Be first!</p>`;
+}
+
+async function postComment(id) {
+  const name = document.getElementById(`cname-${id}`).value.trim() || 'Anonymous';
+  const text = document.getElementById(`ctext-${id}`).value.trim();
+  if (!text) return;
+  const res = await fetch(`/api/videos/${id}/comments`, {
+    method:'POST', headers:{'Content-Type':'application/json'},
+    body: JSON.stringify({name, text})
+  });
+  const c = await res.json();
+  document.getElementById(`ctext-${id}`).value = '';
+  // Update count
+  const cc = document.getElementById(`ccount-${id}`);
+  cc.textContent = parseInt(cc.textContent) + 1;
+  // Re-render comments if open
+  if (openComments[id]) {
+    const list = document.getElementById(`clist-${id}`);
+    list.innerHTML += `<div class="comment-item"><div class="comment-author">${escHtml(c.name)}</div><div>${escHtml(c.text)}</div></div>`;
+  }
+}
+
+// ── Init ──────────────────────────────────────────────────────────
+loadVideos();
+</script>
+</body>
+</html>
